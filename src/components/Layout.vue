@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts">
-import x from '@/assets/icons/labels.svg'
 export default{
     name:'Layout'
 }
