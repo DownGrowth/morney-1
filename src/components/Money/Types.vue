@@ -9,27 +9,52 @@
     </div>
 </template>
 
-<script>
-export default {
-name:'Types',
-props:['xxx'],
-data(){
-  return{
-    type:'-' // '-'表示支出，'+'表示收入
-  }
-},
-mounted(){
-  console.log(this.xxx)
-},
-methods:{
-  selectType(type){ //type只能是'-'和'+'中的一个
+<script lang="ts">
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator';
+@Component
+export default class Types extends Vue{
+  type='-' // '-'表示支出，'+'表示收入
+  @Prop(Number) xxx:number|undefined
+  //Number告诉Vue xxx是Number，运行时
+  //Prop 告诉 Vue,xxx不是data是prop
+  //xxx 属性名
+  //number|undefined就是xxx的类型，编译时
+   selectType(type:string){ //type只能是'-'和'+'中的一个
     if(type !== '-' && type !== '+'){
       throw new Error('type is unKnow')
     }
     this.type=type
-  }
-}    
+   }
+   mounted(){
+    if(this.xxx===undefined){
+      console.log('没有xxx')
+    }else{
+    console.log(this.xxx.toString());
+   }
+   }
+
 }
+// export default {
+// name:'Types',
+// props:['xxx'],
+// data(){
+//   return{
+//     type:'-' // '-'表示支出，'+'表示收入
+//   }
+// },
+// mounted(){
+//   console.log(this.xxx)
+// },
+// methods:{
+//   selectType(type){ //type只能是'-'和'+'中的一个
+//     if(type !== '-' && type !== '+'){
+//       throw new Error('type is unKnow')
+//     }
+//     this.type=type
+//   }
+// }    
+// }
 </script>
 
 <style lang="scss" scoped>
