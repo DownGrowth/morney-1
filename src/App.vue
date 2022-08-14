@@ -10,7 +10,7 @@ import router from './router/index';
 @import "~@/assets/style/reset.scss";
 @import "~@/assets/style/helper.scss";
 
-#app {
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 line-height: 1.5;
