@@ -2,20 +2,41 @@
     <div class="tags">
     
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="tag in dataSource" :key="tag" 
+      :class="{selected:selectedTags.indexOf(tag)>=0}"
+      @click="toggle(tag)">{{tag}} </li>
+      
     </ul>
     </div> 
 </template>
 
 <script lang="ts">
-export default {
-name:'Tags'
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator';
+@Component
+export default class Tags extends Vue {
+ @Prop(Array) readonly dataSource:string[] | undefined;
+ selectedTags:string[]=[] //声明一个空数组
+ toggle(tag:string){
+  const index=this.selectedTags.indexOf(tag)
+  if(index>=0){
+    this.selectedTags.splice(index,1)//如果已经存在，就从数组里删除
+  }else{
+    this.selectedTags.push(tag) //把标签放进上面声明的数组里
+  }
+  this.$emit('update:selected',this.selectedTags)
+ }
+
+  create(){
+     const name=window.prompt('请输入标签名');
+     if(name===''){
+      window.alert('标签名不能为空')
+     }else if(this.dataSource){ this.$emit('update:dataSource',[...this.dataSource,name])
+     }
+}
 }
 </script>
 
@@ -31,13 +52,18 @@ name:'Tags'
     flex-wrap: wrap;
     overflow: auto;
     > li{
-background:#d9d9d9;
+      $bg:#d9d9d9;
+background:$bg;
 $h:24px;
 height:$h;
 border-radius:$h/2;
 padding:0 16px;
 margin-right: 12px;
 line-height:$h;
+&.selected{
+  background: darken($bg,40%);
+  color:white
+}
     }
   }
   > .new{

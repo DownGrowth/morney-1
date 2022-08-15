@@ -1,11 +1,11 @@
 <template>
      
 <Layout class-prefix="layout">
-   
-   <NumberPad/>
-   <Types :xxx="333"/>
-   <Notes/>
-   <Tags/>
+   {{record}}
+   <NumberPad :value.sync="record.amount" @submit="saveRecord" />
+   <Types :value.sync="record.type"/>
+   <Notes @update:value="onUpdateNotes"/>
+   <Tags :data-source.sync="tags" @update:selected="onUpdateTags"/>
 
   </Layout>
 <!-- 把Money.vue传给Layout -->
@@ -14,14 +14,40 @@
 </template>
 
 <script lang="ts">
-
+import Vue from 'vue'
 import NumberPad from '../components/Money/NumberPad.vue';
 import Types from '../components/Money/Types.vue';
 import Notes from '../components/Money/Notes.vue';
 import Tags from '../components/Money/Tags.vue';
-export default {
-    name: "Money",
-    components: { NumberPad, Types, Notes, Tags }
+import {Component, Watch} from 'vue-property-decorator';
+
+type Record={
+   tags:string[]
+   notes:string
+   type:string
+   amount:number
+};
+
+
+@Component({components:{ NumberPad, Types, Notes, Tags }})
+export default class Money extends Vue{
+   tags=['衣','食','住','行']
+   recordList:Record[]=[];
+   record:Record={tags:[],notes:'',type:'-',amount:10};
+   onUpdateTags(value:string[]){
+    this.record.tags=value
+   }
+   onUpdateNotes(value:string){
+    this.record.notes=value
+   }
+    saveRecord(){
+      this.recordList.push(this.record)
+     console.log(this.recordList)
+    }
+    @Watch('recordList')
+    onRecordListChange(){
+      window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+    }
 }
 </script>
 <style lang="scss">
