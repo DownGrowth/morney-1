@@ -11,6 +11,7 @@ import router from './router/index';
 @import "~@/assets/style/helper.scss";
 
 body {
+  background: #f5f5f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 line-height: 1.5;
