@@ -2,6 +2,7 @@
   <Layout>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
+      <!-- 点击后跳转到对应的路由 -->
         <span>{{tag.name}}</span>  <Icon name="right"/>
       </router-link>
     </div>
@@ -17,7 +18,9 @@
 import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import tagListModel from '../models/tagListModel';
+
 tagListModel.fetch()
+
 @Component
 export default class Labels extends Vue{
   tags=tagListModel.data;
