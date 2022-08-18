@@ -9,6 +9,7 @@ module.exports = {
     '@vue/typescript/recommended'
   ],
   "globals": { "RecordItem": true },
+  "globals": { "Tag": true },
   parserOptions: {
     ecmaVersion: 2020
   },

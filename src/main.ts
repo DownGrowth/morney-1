@@ -13,6 +13,8 @@ Vue.component('Nav', Nav)
 Vue.component('Layout', Layout)
 Vue.component('Icon', Icon)
 
+
+
 new Vue({
   router,
   store,
