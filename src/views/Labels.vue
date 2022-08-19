@@ -16,20 +16,20 @@
 
 <script lang="ts">
 
-import {Component} from 'vue-property-decorator';
+import {Component, Mixins} from 'vue-property-decorator';
 import Vue from 'vue';
-
 import Button from '../components/Button.vue';
-import store from '../store/index2';
+import tagHelper from '../mixins/TagHelper';
 
-@Component({components:{Button}})
-export default class Labels extends Vue{
-  tags=store.tagList;
-  createTag(){
-    const name=window.prompt('请输入标签名')
-    if(name){
-      store.createTag(name)
-    }
+@Component({components:{Button},
+mixins:[tagHelper],
+})
+export default class Labels extends Mixins(tagHelper){
+  get tags(){
+return this.$store.state.tagList;
+  }
+  beforeCreate(){
+    this.$store.commit('fetchTags')
   }
 }
 </script>
