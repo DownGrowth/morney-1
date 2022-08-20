@@ -14,7 +14,6 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component, Mixins} from 'vue-property-decorator';
 import tagHelper from '../../mixins/TagHelper';
 
