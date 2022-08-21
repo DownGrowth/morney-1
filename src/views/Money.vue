@@ -31,7 +31,7 @@ import Tabs from '../components/Tabs.vue';
 
 
 
-@Component({components:{Tags, FormItem, Tabs, NumberPad },
+@Component({components:{Tabs, Tags, FormItem, NumberPad},
 },
   
 )
@@ -54,10 +54,10 @@ return this.$store.state.recordList
 }
 </script>
 <style lang="scss" scoped>
-   .layout-content{
+    ::v-deep .layout-content {
     display: flex;
     flex-direction: column-reverse;
-   }
+  }
    .notes{
     padding: 12px 0;
    }
