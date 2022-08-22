@@ -3,7 +3,7 @@
     <label class="formItem">
      
       <span class="name">{{fieldName}}</span> 
-       <input type="text" @input="onValueChanged($event.target.value)"
+       <input type="text" :value="value" @input="onValueChanged($event.target.value)"
         :placeholder="placeholder"> 
       </label>
     
@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {Component,Watch, Prop} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class FormItem extends Vue {
 @Prop({default:''}) readonly value!:string;
