@@ -20,4 +20,9 @@ line-height: 1.5;
   color: #333;
 }
 
+#app{
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 </style>
