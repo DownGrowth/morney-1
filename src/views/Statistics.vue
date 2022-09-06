@@ -1,6 +1,9 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <div class="chart-wrapper" ref="chartWrapper">
+      <Chart class="chart" :options="x"/>
+    </div>
     
     <ol v-if="groupedList.length>0">
       <li v-for="(group,index) in groupedList" :key="index">
@@ -27,21 +30,24 @@
 
 
 <script lang="ts">
-import Nav from '@/components/Nav.vue';
-import Layout from '@/components/Layout.vue';
 import {Component} from 'vue-property-decorator';
 import Vue from 'vue'
 import Tabs from '../components/Tabs.vue'
 import recordTypeList from '../constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '../components/lib/clone';
+import Chart from '../components/Money/Chart.vue'
+
 
 @Component({
-  components: { Nav,Layout,Tabs }
+  components: { Tabs,Chart }
 })
 export default class Statistics extends Vue {
   tagString(tags:Tag[]) {
     return tags.length === 0 ?'无' :tags.map(t=>t.name).join('，')
+  }
+  mounted() {
+    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft=9999
   }
   beautify(string: string) {
     const day=dayjs(string)
@@ -61,7 +67,30 @@ export default class Statistics extends Vue {
   get recordList() {
     return (this.$store.state as RootState).recordList
   }
-
+  get x() {
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
+      xAxis: {
+          type: 'category',
+          data:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        series: [{
+          data: [150, 230, 224, 218, 135, 147, 260, 100,
+          100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,],
+      type: 'line'
+        }],
+        tooltip: {
+          show: true
+        }
+      };
+    }
   get groupedList() {
     const { recordList } = this;
     
@@ -97,6 +126,15 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .chart {
+  width:500%;
+  &-wrapper{
+    overflow: auto;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+}
    ::v-deep {
     .noResult{
       padding: 16px;
