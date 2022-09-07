@@ -95,7 +95,7 @@ export default class Statistics extends Vue {
   }
   get chartOptions() {
    
-    const keys = this.keyValueList.map(item => item.key)
+    const keys = this.keyValueList.map(item => item.key)//对于每一项，只获取其中的key
     const values=this.keyValueList.map(item=>item.value)
     return {
       grid: {
